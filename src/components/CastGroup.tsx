@@ -4,74 +4,79 @@ import PersonSkeleton from './skeletons/PersonSkeleton';
 import Heading from './ui/Heading';
 
 function CastGroup({
-  cast,
-  loading,
+    cast,
+    loading,
 }: {
-  cast: { id: number; name: string; character: string; profile_path: string }[];
-  loading: boolean;
+    cast: {
+        id: number;
+        name: string;
+        character: string;
+        profile_path: string;
+    }[];
+    loading: boolean;
 }) {
-  const [currentCast, setCurrentCast] = useState(cast);
-  const [showAll, setShowAll] = useState(false);
+    const [currentCast, setCurrentCast] = useState(cast);
+    const [showAll, setShowAll] = useState(false);
 
-  const handleClick = () => {
-    setShowAll((prev) => !prev);
-  };
+    const handleClick = () => {
+        setShowAll((prev) => !prev);
+    };
 
-  useEffect(() => {
-    if (showAll) {
-      setCurrentCast(cast);
-    } else {
-      setCurrentCast(cast.slice(0, 12));
-    }
-  }, [showAll, cast]);
+    useEffect(() => {
+        if (showAll) {
+            setCurrentCast(cast);
+        } else {
+            setCurrentCast(cast.slice(0, 12));
+        }
+    }, [showAll, cast]);
 
-  return (
-    <div className="flex flex-col items-start justify-start w-full gap-4">
-      <Heading>Cast</Heading>
+    return (
+        <div className="flex flex-col items-start justify-start w-full gap-4">
+            <Heading>Cast</Heading>
 
-      {loading && (
-        <div
-          role="status"
-          className="grid w-full grid-cols-3 animate-pulse gap-y-2"
-        >
-          <PersonSkeleton />
-          <PersonSkeleton />
-          <PersonSkeleton />
-          <PersonSkeleton />
-          <PersonSkeleton />
-          <PersonSkeleton />
-          <PersonSkeleton />
-          <PersonSkeleton />
-          <PersonSkeleton />
-          <PersonSkeleton />
-          <PersonSkeleton />
-          <PersonSkeleton />
-          <span className="sr-only">Loading...</span>
+            {loading && (
+                <div
+                    role="status"
+                    className="grid w-full grid-cols-3 animate-pulse gap-y-2"
+                >
+                    <PersonSkeleton />
+                    <PersonSkeleton />
+                    <PersonSkeleton />
+                    <PersonSkeleton />
+                    <PersonSkeleton />
+                    <PersonSkeleton />
+                    <PersonSkeleton />
+                    <PersonSkeleton />
+                    <PersonSkeleton />
+                    <PersonSkeleton />
+                    <PersonSkeleton />
+                    <PersonSkeleton />
+                    <span className="sr-only">Loading...</span>
+                </div>
+            )}
+
+            {cast.length > 0 && (
+                <ul className="grid w-full grid-cols-3 gap-y-2">
+                    {currentCast.map((person) => (
+                        <Person
+                            key={person.id}
+                            id={person.id}
+                            name={person.name}
+                            character={person.character}
+                            profile_path={person.profile_path}
+                        />
+                    ))}
+                </ul>
+            )}
+
+            <button
+                className="flex items-center self-center gap-2 px-4 py-2 transition-all duration-500 ease-out bg-black/15 rounded-lg hover:bg-black/30"
+                onClick={handleClick}
+            >
+                {showAll ? <span>See Less</span> : <span>See All</span>}
+            </button>
         </div>
-      )}
-
-      {cast.length > 0 && (
-        <ul className="grid w-full grid-cols-3 gap-y-2">
-          {currentCast.map((person) => (
-            <Person
-              key={person.id}
-              id={person.id}
-              name={person.name}
-              character={person.character}
-              profile_path={person.profile_path}
-            />
-          ))}
-        </ul>
-      )}
-
-      <button
-        className="flex items-center self-center gap-2 px-4 py-2 transition-all duration-500 ease-out bg-black/15 rounded-lg hover:bg-black/30"
-        onClick={handleClick}
-      >
-        {showAll ? <span>See Less</span> : <span>See All</span>}
-      </button>
-    </div>
-  );
+    );
 }
 
 export default CastGroup;

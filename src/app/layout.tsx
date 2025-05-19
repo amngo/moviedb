@@ -7,36 +7,36 @@ import Footer from '@/components/Footer';
 import Background from '@/components/Background/Background';
 
 const robotoCondensed = Roboto_Condensed({
-  variable: '--font-roboto-condensed',
-  subsets: ['latin'],
+    variable: '--font-roboto-condensed',
+    subsets: ['latin'],
 });
 
 const audiowide = Audiowide({
-  variable: '--font-audiowide',
-  subsets: ['latin'],
-  weight: '400',
+    variable: '--font-audiowide',
+    subsets: ['latin'],
+    weight: '400',
 });
 
 export const metadata: Metadata = {
-  title: 'MovieDB',
-  description: 'A Movie Database',
+    title: 'MovieDB',
+    description: 'A Movie Database',
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={`${robotoCondensed} ${audiowide} antialiased`}>
-        <Header />
-        <main className="mx-auto w-full my-16 max-w-[1080px] relative">
-          <QueryProvider>{children}</QueryProvider>
-        </main>
-        <Footer />
-        <Background />
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body className={`${robotoCondensed} ${audiowide} antialiased`}>
+                <Header />
+                <main className="mx-auto w-full my-16 max-w-[1080px] relative">
+                    <QueryProvider>{children}</QueryProvider>
+                </main>
+                <Footer />
+                <Background />
+            </body>
+        </html>
+    );
 }

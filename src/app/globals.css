@@ -1,18 +1,22 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #000f24;
-  --foreground: #ededed;
+    --background: #000f24;
+    --foreground: #ededed;
 }
 
 html,
 body {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Roboto Condensed, Arial, Helvetica, sans-serif;
-  display: grid;
+    color: var(--foreground);
+    background: var(--background);
+    font-family:
+        Roboto Condensed,
+        Arial,
+        Helvetica,
+        sans-serif;
+    display: grid;
 }

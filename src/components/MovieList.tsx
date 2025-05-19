@@ -1,31 +1,36 @@
-import React from 'react';
-import MoviePoster from './MoviePoster';
+import { motion } from 'motion/react';
+import BigMoviePoster from './BigMoviePoster';
+import { Movie, Recommendation } from 'tmdb-ts';
 
-function MovieList({
-  movies,
-  width,
-  cols = 4,
-}: {
-  movies: { id: number; title: string; poster_path?: string }[];
-  width?: number;
-  cols?: number;
-}) {
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.2 } },
+};
+
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.75 } },
+};
+
+function MovieList({ movies }: { movies: Movie[] | Recommendation[] }) {
   return (
-    <ul
-      className="grid w-full h-full place-items-center gap-y-8"
-      style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
+    <motion.ul
+      variants={container}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      className="grid grid-cols-3 gap-2 w-full"
     >
       {movies.map((movie) => (
-        <li key={movie.id}>
-          <MoviePoster
-            id={movie.id}
-            title={movie.title}
-            posterPath={movie.poster_path}
-            width={width}
-          />
-        </li>
+        <motion.li
+          variants={item}
+          key={movie.id}
+          className="min-w-[250px] min-h-[375px] relative"
+        >
+          <BigMoviePoster movie={movie} />
+        </motion.li>
       ))}
-    </ul>
+    </motion.ul>
   );
 }
 

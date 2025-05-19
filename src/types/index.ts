@@ -6,4 +6,5 @@ export type ExtendedMovieDetails = MovieDetails & {
   crew?: Crew[];
   recommendations?: Recommendation[];
   trailer?: { key: string };
+  rgb: string;
 };

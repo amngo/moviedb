@@ -1,0 +1,7 @@
+.react-multi-carousel-dot-list {
+  bottom: 24 !important;
+}
+
+.react-multi-carousel-dot--active button {
+  background: #fff !important;
+}

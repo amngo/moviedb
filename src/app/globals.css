@@ -1,17 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #000f24;
+  --foreground: #ededed;
 }
 
 html,
@@ -23,5 +14,5 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Roboto Condensed, Arial, Helvetica, sans-serif;
-  display: flex;
+  display: grid;
 }

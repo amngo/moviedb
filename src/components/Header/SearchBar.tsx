@@ -1,14 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+'use client';
+
+import { useState, useRef, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
-import MovieList from './MovieList';
-import { debounce } from '@/lib/utils';
-import { tmdb } from '@/lib/tmdb';
-import { Movie } from 'tmdb-ts';
+import MovieList from '../MovieList';
+import { debounce, getAverageImageColor } from '@/lib/utils';
+import { MovieWithRgb, tmdb } from '@/lib/tmdb';
 import { AnimatePresence, motion } from 'motion/react';
 
 function SearchBar() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
-  const [searchResults, setSearchResults] = useState<Movie[]>([]);
+  const [searchResults, setSearchResults] = useState<MovieWithRgb[]>([]);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
@@ -22,7 +23,19 @@ function SearchBar() {
 
   const handleSearch = async (query: string) => {
     const result = await tmdb.search.movies({ query });
-    setSearchResults(result.results.slice(0, 20));
+
+    // Get rgb values for each movie
+    const promises = result.results.map(async (movie) => {
+      const rgb = await getAverageImageColor(
+        `https://image.tmdb.org/t/p/original${movie.poster_path}`
+      );
+      (movie as MovieWithRgb).rgb = rgb;
+    });
+    await Promise.all(promises);
+
+    console.log(result.results);
+
+    setSearchResults(result.results.slice(0, 20) as MovieWithRgb[]);
   };
 
   const debouncedHandleSearch = debounce(handleSearch, 300);
@@ -60,13 +73,13 @@ function SearchBar() {
   return (
     <>
       <button
-        className="relative flex items-center justify-center w-full"
+        className="relative flex items-center justify-center w-[250px]"
         onClick={handleClick}
       >
         <input
           type="text"
           placeholder="Search for a movie"
-          className="w-[250px] h-12 px-4 py-4 font-bold bg-black bg-opacity-10 backdrop-blur-lg border-white border-[1px] rounded-xl placeholder:text-white pointer-events-none"
+          className="w-full h-12 px-4 py-4 font-bold transparent border-white border-[1px] rounded-xl placeholder:text-white pointer-events-none"
         />
         <FaSearch className="absolute text-2xl right-4" />
       </button>
@@ -100,7 +113,7 @@ function SearchBar() {
                 />
 
                 <div className="max-h-[500px] overflow-y-scroll">
-                  <MovieList movies={searchResults} width={150} cols={5} />
+                  <MovieList movies={searchResults} />
                 </div>
 
                 <button

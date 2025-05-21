@@ -5,6 +5,7 @@ import QueryProvider from '@/lib/QueryProvider';
 import Header from '@/components/Layout/Header';
 import Footer from '@/components/Layout/Footer';
 import Background from '@/components/Background/Background';
+import { Suspense } from 'react';
 
 const robotoCondensed = Roboto_Condensed({
     variable: '--font-roboto-condensed',
@@ -32,7 +33,9 @@ export default function RootLayout({
             <body className={`${robotoCondensed} ${audiowide} antialiased`}>
                 <Header />
                 <main className="mx-auto w-full my-16 max-w-[1080px] relative">
-                    <QueryProvider>{children}</QueryProvider>
+                    <QueryProvider>
+                        <Suspense>{children}</Suspense>
+                    </QueryProvider>
                 </main>
                 <Footer />
                 <Background />

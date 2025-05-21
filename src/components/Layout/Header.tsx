@@ -29,18 +29,7 @@ function Header() {
                                 Home
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                href="/about"
-                                className={`text-white ${
-                                    pathname === '/about'
-                                        ? 'underline decoration-3 underline-offset-6 font-bold'
-                                        : ''
-                                }`}
-                            >
-                                Browse
-                            </Link>
-                        </li>
+
                         <li>
                             <Link
                                 href="/genre"
@@ -51,6 +40,19 @@ function Header() {
                                 }`}
                             >
                                 Genres
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link
+                                href="/history"
+                                className={`text-white ${
+                                    pathname === '/history'
+                                        ? 'underline decoration-3 underline-offset-6 font-bold'
+                                        : ''
+                                }`}
+                            >
+                                History
                             </Link>
                         </li>
                     </ul>

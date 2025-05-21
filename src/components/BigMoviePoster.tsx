@@ -2,9 +2,13 @@ import { formatDate } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { IoInformationCircle } from 'react-icons/io5';
-import { Movie, Recommendation } from 'tmdb-ts';
+import { Movie, MovieDetails, Recommendation } from 'tmdb-ts';
 
-function BigMoviePoster({ movie }: { movie: Movie | Recommendation }) {
+function BigMoviePoster({
+    movie,
+}: {
+    movie: Movie | Recommendation | MovieDetails;
+}) {
     return (
         <Link href={`/movie/${movie.id}`} className="group">
             <div className="h-full w-full overflow-hidden rounded-md">

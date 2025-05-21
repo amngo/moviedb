@@ -21,6 +21,7 @@ import Heading from '@/components/ui/Heading';
 import { getAverageImageColor } from '@/lib/utils';
 import Loader from '@/components/Loader/Loader';
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 export default function Page() {
     const { id } = useParams();
@@ -70,6 +71,25 @@ export default function Page() {
         queryKey: ['trailer', id],
         queryFn: () => getTrailer(Number(id)),
     });
+
+    useEffect(() => {
+        const history = localStorage.getItem('history');
+        const historyArray = history ? JSON.parse(history) : [];
+
+        // If duplicate, remove it first
+        const index = historyArray.indexOf(id);
+        if (index !== -1) {
+            historyArray.splice(index, 1);
+        }
+
+        historyArray.push(id);
+        localStorage.setItem('history', JSON.stringify(historyArray));
+
+        if (historyArray.length > 20) {
+            historyArray.shift();
+            localStorage.setItem('history', JSON.stringify(historyArray));
+        }
+    }, [id]);
 
     if (isLoading || recommendationsLoading || certificationLoading) {
         return (

@@ -33,7 +33,7 @@ export default function Page() {
 
     // Sort credits.cast by popularity without mutating the original array
     const sortedByPopularity = [...credits.cast].sort(
-        (a, b) => b.popularity - a.popularity
+        (a, b) => b.popularity - a.popularity,
     );
 
     return (

@@ -2,11 +2,10 @@
 import BigMoviePoster from '@/components/BigMoviePoster';
 import Loader from '@/components/Loader/Loader';
 import Pagination from '@/components/Pagination/Pagination';
-import { GENRE_POSTERS } from '@/lib/constants';
-import { getMoviesFromGenre } from '@/lib/tmdb';
+import { searchMovies } from '@/lib/tmdb';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'motion/react';
-import { useParams, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const container = {
     hidden: { opacity: 0 },
@@ -19,27 +18,21 @@ const item = {
 };
 
 export default function Page() {
-    const pathname = window.location.pathname;
-    const params = useParams();
+    const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    const { id } = params;
     const page = searchParams.get('page');
+    const q = searchParams.get('q');
 
     const { data } = useQuery({
-        queryKey: ['movies', id, page],
+        queryKey: ['movies', q, page],
         queryFn: async () => {
-            if (typeof id !== 'string') {
-                throw new Error('Invalid genre ID');
+            if (!q) {
+                return null;
             }
-
-            const result = await getMoviesFromGenre(
-                id,
-                page ? Number(page) : 1
-            );
+            const result = await searchMovies(q, page ? Number(page) : 1);
             return result;
         },
-        enabled: typeof id === 'string',
     });
 
     if (!data) {
@@ -51,22 +44,12 @@ export default function Page() {
         );
     }
 
-    if (!id) {
-        return (
-            <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-fulll">
-                <p className="text-3xl">Invalid genre ID</p>
-                <Loader />
-            </div>
-        );
-    }
-
     return (
         <section className="flex flex-col w-full min-h-screen pt-12 items-start">
             <Pagination
-                title={
-                    GENRE_POSTERS.find((genre) => genre.id === id)?.name ?? ''
-                }
                 path={pathname}
+                query={`q=${q}`}
+                title={`Search results for "${q}"`}
                 totalResults={data.total_results}
                 totalPages={data.total_pages}
                 currentPage={page ? Number(page) : 1}

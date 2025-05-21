@@ -1,107 +1,133 @@
 'use client';
-
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
-import PaginationItem from './PaginationItem';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 function Pagination({
     currentPage,
     totalResults,
     totalPages,
+    title,
+    path,
+    query,
 }: {
     currentPage: number;
     totalResults: number;
     totalPages: number;
+    title: string;
+    path: string;
+    query?: string;
 }) {
-    const pathname = usePathname();
+    const [page, setPage] = useState(currentPage);
+    const router = useRouter();
+
+    useEffect(() => {
+        setPage(currentPage);
+    }, [currentPage]);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Number(event.target.value);
+        setPage(value);
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter' && page) {
+            setPage(page);
+            router.push(`${path}?page=${page}${query ? `&${query}` : ''}`);
+        }
+    };
+
+    const handleBlur = () => {
+        if (page < 1) {
+            setPage(1);
+            router.push(`${path}?page=1${query ? `&${query}` : ''}`);
+        } else if (page > totalPages) {
+            setPage(totalPages);
+            router.push(
+                `${path}?page=${totalPages}${query ? `&${query}` : ''}`,
+            );
+        } else {
+            router.push(`${path}?page=${page}${query ? `&${query}` : ''}`);
+        }
+    };
 
     return (
-        <div className="flex items-center justify-between bg-black/50 backdrop-blur-md px-4 py-3 rounded-md w-3xl justify-self-end">
-            <div className="flex flex-1 items-center justify-between">
-                <div>
-                    <p className="text-sm">
-                        Showing{' '}
-                        <span className="font-medium">
-                            {(currentPage - 1) * 20 + 1}
-                        </span>{' '}
-                        to{' '}
-                        <span className="font-medium">
-                            {(currentPage - 1) * 20 + 20}
-                        </span>{' '}
-                        of <span className="font-medium">{totalResults}</span>{' '}
-                        results
-                    </p>
-                </div>
-                <div>
-                    <nav
-                        aria-label="Pagination"
-                        className="isolate inline-flex -space-x-px rounded-md shadow-xs"
-                    >
-                        <Link
-                            aria-disabled={currentPage === 0}
-                            href={
-                                currentPage !== 1
-                                    ? `${pathname}?page=${currentPage - 1}`
-                                    : '#'
-                            }
-                            className="relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-gray-300 ring-inset hover:bg-white hover:text-black focus:z-20 focus:outline-offset-0"
+        <div className="flex items-center justify-between gap-4 bg-black/50 backdrop-blur-md px-4 py-3 rounded-md w-full justify-self-end">
+            <h2 className="text font-bold tracking-wider text-white uppercase max-w-md truncate">
+                {title}
+            </h2>
+            {totalResults > 20 && (
+                <div className="flex items-center justify-between gap-4">
+                    <div>
+                        <p className="text-sm">
+                            Showing{' '}
+                            <span className="font-medium">
+                                {(currentPage - 1) * 20 + 1}
+                            </span>{' '}
+                            to{' '}
+                            <span className="font-medium">
+                                {(currentPage - 1) * 20 + 20 > totalResults
+                                    ? totalResults
+                                    : (currentPage - 1) * 20 + 20}
+                            </span>{' '}
+                            of{' '}
+                            <span className="font-medium">{totalResults}</span>{' '}
+                            results
+                        </p>
+                    </div>
+                    <div>
+                        <nav
+                            aria-label="Pagination"
+                            className="isolate inline-flex -space-x-px rounded-md shadow-xs gap-2"
                         >
-                            <span className="sr-only">Previous</span>
-                            <BiChevronLeft
-                                aria-hidden="true"
-                                className="size-5"
+                            <Link
+                                aria-disabled={currentPage === 0}
+                                href={
+                                    currentPage !== 1
+                                        ? `${path}?page=${currentPage - 1}${
+                                              query ? `&${query}` : ''
+                                          }`
+                                        : '#'
+                                }
+                                className="relative inline-flex items-center justify-center rounded-l-md ring-1 ring-gray-300 ring-inset hover:bg-white hover:text-black focus:z-20 focus:outline-offset-0 h-8 w-8"
+                            >
+                                <span className="sr-only">Previous</span>
+                                <BiChevronLeft
+                                    aria-hidden="true"
+                                    className="size-5"
+                                />
+                            </Link>
+
+                            <input
+                                type="text"
+                                value={page}
+                                onChange={handleChange}
+                                onKeyDown={handleKeyDown}
+                                onBlur={handleBlur}
+                                className="w-16 h-8 text-center font-bold text-sm bg-black/0 border-white border-[1px] placeholder:text-white"
                             />
-                        </Link>
 
-                        <PaginationItem
-                            current
-                            page={currentPage}
-                            url={pathname + '?page=' + currentPage}
-                        />
-                        <PaginationItem
-                            page={currentPage + 1}
-                            url={pathname + '?page=' + (currentPage + 1)}
-                        />
-                        <PaginationItem
-                            page={currentPage + 2}
-                            url={pathname + '?page=' + (currentPage + 2)}
-                        />
-
-                        <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-gray-300 ring-inset focus:outline-offset-0">
-                            ...
-                        </span>
-
-                        <PaginationItem
-                            page={currentPage + 7}
-                            url={pathname + '?page=' + (currentPage + 7)}
-                        />
-                        <PaginationItem
-                            page={currentPage + 8}
-                            url={pathname + '?page=' + (currentPage + 8)}
-                        />
-                        <PaginationItem
-                            page={currentPage + 9}
-                            url={pathname + '?page=' + (currentPage + 9)}
-                        />
-
-                        <Link
-                            href={
-                                currentPage !== totalPages - 1
-                                    ? `${pathname}?page=${currentPage + 1}`
-                                    : '#'
-                            }
-                            className="relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-gray-300 ring-inset hover:bg-white hover:text-black focus:z-20 focus:outline-offset-0"
-                        >
-                            <span className="sr-only">Next</span>
-                            <BiChevronRight
-                                aria-hidden="true"
-                                className="size-5"
-                            />
-                        </Link>
-                    </nav>
+                            <Link
+                                href={
+                                    currentPage !== totalPages
+                                        ? `${path}?page=${currentPage + 1}${
+                                              query ? `&${query}` : ''
+                                          }`
+                                        : '#'
+                                }
+                                className="relative inline-flex items-center rounded-r-md h-8 w-8 justify-center ring-1 ring-gray-300 ring-inset hover:bg-white hover:text-black focus:z-20 focus:outline-offset-0"
+                            >
+                                <span className="sr-only">Next</span>
+                                <BiChevronRight
+                                    aria-hidden="true"
+                                    className="size-5"
+                                />
+                            </Link>
+                        </nav>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }

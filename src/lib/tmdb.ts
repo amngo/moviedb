@@ -133,3 +133,22 @@ export async function getMoviesFromGenre(genreId: string, page: number) {
     });
     return response;
 }
+
+export async function searchMovies(query: string, page: number) {
+    const response = await tmdb.search.movies({
+        query,
+        page,
+    });
+
+    return response;
+}
+
+export async function getMutipleMovies(movieIds: number[]) {
+    const promises = movieIds.map(async (id) => {
+        const response = await tmdb.movies.details(id);
+        return response;
+    });
+
+    const movies = await Promise.all(promises);
+    return movies;
+}

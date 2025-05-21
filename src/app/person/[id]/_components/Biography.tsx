@@ -1,5 +1,4 @@
-import React from 'react';
-import Heading from './ui/Heading';
+import Heading from '@/components/ui/Heading';
 
 function Biography({ bio }: { bio: string }) {
     return (

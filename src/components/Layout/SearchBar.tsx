@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
-import MovieList from '../MovieList';
+import MovieList from '../../app/movie/[id]/_components/MovieList';
 import { debounce, getAverageImageColor } from '@/lib/utils';
 import { MovieWithRgb, tmdb } from '@/lib/tmdb';
 import { AnimatePresence, motion } from 'motion/react';
@@ -27,7 +27,7 @@ function SearchBar() {
         // Get rgb values for each movie
         const promises = result.results.map(async (movie) => {
             const rgb = await getAverageImageColor(
-                `https://image.tmdb.org/t/p/original${movie.poster_path}`,
+                `https://image.tmdb.org/t/p/original${movie.poster_path}`
             );
             (movie as MovieWithRgb).rgb = rgb;
         });

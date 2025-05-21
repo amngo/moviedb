@@ -1,11 +1,11 @@
 'use client';
-import CastGroup from '@/components/CastGroup';
-import CrewGroup from '@/components/CrewGroup';
-import GenreTags from '@/components/GenreTags';
-import MainPoster from '@/components/MainPoster';
-import MovieInfo from '@/components/MovieInfo';
-import MovieList from '@/components/MovieList';
-import Overview from '@/components/Overview';
+import CastGroup from '@/app/movie/[id]/_components/CastGroup';
+import CrewGroup from '@/app/movie/[id]/_components/CrewGroup';
+import GenreTags from '@/app/movie/[id]/_components/GenreTags';
+import MainPoster from '@/app/movie/[id]/_components/MainPoster';
+import MovieInfo from '@/app/movie/[id]/_components/MovieInfo';
+import MovieList from '@/app/movie/[id]/_components/MovieList';
+import Overview from '@/app/movie/[id]/_components/Overview';
 import { tmdb } from '@/lib/tmdb';
 import { ExtendedMovieDetails } from '@/types';
 import { useQuery } from '@tanstack/react-query';
@@ -19,6 +19,8 @@ import {
 } from '@/lib/tmdb';
 import Heading from '@/components/ui/Heading';
 import { getAverageImageColor } from '@/lib/utils';
+import Loader from '@/components/Loader/Loader';
+import Image from 'next/image';
 
 export default function Page() {
     const { id } = useParams();
@@ -30,11 +32,11 @@ export default function Page() {
                 throw new Error('Invalid movie ID');
             }
             const result = (await tmdb.movies.details(
-                movieId,
+                movieId
             )) as ExtendedMovieDetails;
 
             const rgb = await getAverageImageColor(
-                `https://image.tmdb.org/t/p/original${result.poster_path}`,
+                `https://image.tmdb.org/t/p/original${result.poster_path}`
             );
             result.rgb = rgb;
             console.log(result);
@@ -43,7 +45,7 @@ export default function Page() {
         },
     });
 
-    const { data: certification } = useQuery({
+    const { data: certification, isLoading: certificationLoading } = useQuery({
         queryKey: ['certification', id],
         queryFn: () => getCertification(Number(id)),
     });
@@ -58,27 +60,35 @@ export default function Page() {
         queryFn: () => getDirectors(Number(id)),
     });
 
-    const { data: recommendations } = useQuery({
-        queryKey: ['recommendations', id],
-        queryFn: () => getRecommendations(Number(id)),
-    });
+    const { data: recommendations, isLoading: recommendationsLoading } =
+        useQuery({
+            queryKey: ['recommendations', id],
+            queryFn: () => getRecommendations(Number(id)),
+        });
 
     const { data: trailer } = useQuery({
         queryKey: ['trailer', id],
         queryFn: () => getTrailer(Number(id)),
     });
 
-    //   const { data: images, isLoading: imagesLoading } = useQuery({
-    //     queryKey: ['images', id],
-    //     queryFn: () => getMovieImages(Number(id)),
-    //   });
-
-    if (isLoading) {
-        return <div>Loading...</div>;
+    if (isLoading || recommendationsLoading || certificationLoading) {
+        return (
+            <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-full">
+                <p className="text-3xl">Fetching movie information</p>
+                <Loader />
+            </div>
+        );
     }
 
     if (!movie) {
-        return <div>Error loading movie details</div>;
+        return (
+            <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-full">
+                <p className="text-3xl">
+                    Error when fetching movie information. Please try again or
+                    another movie.
+                </p>
+            </div>
+        );
     }
 
     const {
@@ -97,20 +107,21 @@ export default function Page() {
         <>
             <div className="w-full h-full fixed top-0 left-0">
                 <div
-                    className="absolute inset-0 backdrop-blur-md"
+                    className="absolute inset-0 backdrop-blur-md z-10"
                     style={{
                         backgroundColor: `rgba(${movie.rgb}, 0.60)`,
                     }}
                 ></div>
-                <img
+                <Image
                     src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-                    alt=""
+                    alt={`${title} backdrop`}
                     className="object-cover w-full h-full"
+                    layout="fill"
                 />
             </div>
 
             <div
-                className="w-full h-full max-w-[1080px] z-10 relative"
+                className="w-full h-full max-w-[1080px] min-h-screen z-10 relative"
                 style={{
                     backgroundImage: `url(https://image.tmdb.org/t/p/original${backdrop_path})`,
                     backgroundSize: 'contain',
@@ -143,9 +154,11 @@ export default function Page() {
                         />
                     </div>
 
-                    <div className="col-span-2">
-                        <Overview overview={overview} />
-                    </div>
+                    {overview && (
+                        <div className="col-span-2">
+                            <Overview overview={overview} />
+                        </div>
+                    )}
 
                     <div className="col-span-2">
                         <CrewGroup loading={crewLoading} crew={crew ?? []} />
@@ -155,10 +168,12 @@ export default function Page() {
                         <CastGroup loading={castLoading} cast={cast ?? []} />
                     </div>
 
-                    <div className="flex flex-col items-start justify-start col-span-2 row-span-4 gap-4 overflow-hidden">
-                        <Heading>Recommendations</Heading>
-                        <MovieList movies={recommendations ?? []} />
-                    </div>
+                    {recommendations && recommendations.length > 0 && (
+                        <div className="flex flex-col items-start justify-start col-span-2 row-span-4 gap-4 overflow-hidden">
+                            <Heading>Recommendations</Heading>
+                            <MovieList movies={recommendations ?? []} />
+                        </div>
+                    )}
                 </div>
             </div>
         </>

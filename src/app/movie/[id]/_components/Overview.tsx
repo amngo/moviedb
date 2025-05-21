@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from './ui/Heading';
+import Heading from '@/components/ui/Heading';
 
 function Overview({ overview }: { overview: string }) {
     return (

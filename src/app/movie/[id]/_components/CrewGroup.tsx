@@ -1,7 +1,6 @@
-import React from 'react';
 import Person from './Person';
-import PersonSkeleton from './skeletons/PersonSkeleton';
-import Heading from './ui/Heading';
+import PersonSkeleton from '../../../../components/skeletons/PersonSkeleton';
+import Heading from '../../../../components/ui/Heading';
 
 function CrewGroup({
     crew,

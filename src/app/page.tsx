@@ -49,7 +49,7 @@ export default function Page() {
     if (isLoading || !nowPlayingMovies || !popularMovies || !upcomingMovies) {
         return (
             <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-full">
-                <p className="text-3xl">Fetching movies...</p>
+                <p className="text-3xl">Fetching the latest movies</p>
                 <Loader />
             </div>
         );

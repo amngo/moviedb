@@ -1,4 +1,3 @@
-import React from 'react';
 import Tag from './Tag';
 
 function GenreTags({ genres }: { genres: { id: number; name: string }[] }) {

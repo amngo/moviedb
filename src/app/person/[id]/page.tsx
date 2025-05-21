@@ -1,12 +1,12 @@
 'use client';
 
-import Biography from '@/components/Biography';
-import PopularRoles from '@/components/PopularRoles';
+import Biography from './_components/Biography';
+import PopularRoles from '@/app/person/[id]/_components/PopularRoles';
 import Timeline from '@/components/Timeline/Timeline';
 import { tmdb } from '@/lib/tmdb';
 import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import React from 'react';
 
 export default function Page() {
     const { id } = useParams();
@@ -18,7 +18,6 @@ export default function Page() {
                 throw new Error('Invalid person ID');
             }
             const result = await tmdb.people.details(personId);
-            console.log(result);
             return result;
         },
     });
@@ -34,12 +33,12 @@ export default function Page() {
 
     // Sort credits.cast by popularity without mutating the original array
     const sortedByPopularity = [...credits.cast].sort(
-        (a, b) => b.popularity - a.popularity,
+        (a, b) => b.popularity - a.popularity
     );
 
     return (
-        <div className="grid grid-cols-[300px_1fr] gap-12 p-6 pb-24 bg-zinc-900">
-            <img
+        <div className="grid grid-cols-[300px_1fr] gap-12 p-6 pb-24 bg-black/50 backdrop-blur-md min-h-screen h-full">
+            <Image
                 src={
                     person.profile_path
                         ? `https://image.tmdb.org/t/p/w500${person.profile_path}`
@@ -47,6 +46,10 @@ export default function Page() {
                 }
                 alt={person.name}
                 className="rounded-lg w-[300px]"
+                width={300}
+                height={450}
+                priority
+                quality={100}
             />
 
             <div className="col-start-2">

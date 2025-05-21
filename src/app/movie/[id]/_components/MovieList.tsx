@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import BigMoviePoster from './BigMoviePoster';
+import BigMoviePoster from '../../../../components/BigMoviePoster';
 import { Movie, Recommendation } from 'tmdb-ts';
 
 const container = {
@@ -18,8 +18,8 @@ function MovieList({ movies }: { movies: Movie[] | Recommendation[] }) {
             variants={container}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            className="grid grid-cols-3 gap-2 w-full"
+            viewport={{ once: true, amount: 0.05 }}
+            className="grid grid-cols-3 gap-2 w-full items-center justify-items-center"
         >
             {movies.map((movie) => (
                 <motion.li

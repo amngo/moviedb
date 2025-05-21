@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Person from './Person';
-import PersonSkeleton from './skeletons/PersonSkeleton';
-import Heading from './ui/Heading';
+import PersonSkeleton from '../../../../components/skeletons/PersonSkeleton';
+import Heading from '../../../../components/ui/Heading';
 
 function CastGroup({
     cast,
@@ -69,12 +69,14 @@ function CastGroup({
                 </ul>
             )}
 
-            <button
-                className="flex items-center self-center gap-2 px-4 py-2 transition-all duration-500 ease-out bg-black/15 rounded-lg hover:bg-black/30"
-                onClick={handleClick}
-            >
-                {showAll ? <span>See Less</span> : <span>See All</span>}
-            </button>
+            {currentCast.length > 12 && (
+                <button
+                    className="flex items-center self-center gap-2 px-4 py-2 transition-all duration-500 ease-out bg-black/15 rounded-lg hover:bg-black/30"
+                    onClick={handleClick}
+                >
+                    {showAll ? <span>See Less</span> : <span>See All</span>}
+                </button>
+            )}
         </div>
     );
 }

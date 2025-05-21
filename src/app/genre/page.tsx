@@ -1,5 +1,5 @@
 'use client';
-import GenrePoster from '@/components/GenrePoster';
+import GenrePoster from '@/app/genre/_components/GenrePoster';
 import { GENRE_POSTERS } from '@/lib/constants';
 import { motion } from 'motion/react';
 

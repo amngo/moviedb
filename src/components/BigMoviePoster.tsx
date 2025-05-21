@@ -34,12 +34,7 @@ function BigMoviePoster({ movie }: { movie: Movie | Recommendation }) {
                                 {movie.title}
                             </h2>
                         </div>
-                        <div
-                            className="h-[50px] flex justify-between items-center px-4"
-                            style={{
-                                backgroundColor: `rgba(0,0,0,1)`,
-                            }}
-                        >
+                        <div className="h-[50px] flex justify-between items-center px-4 bg-black/25">
                             <p className="text-sm">
                                 {formatDate(movie.release_date)}
                             </p>

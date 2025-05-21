@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Audiowide, Roboto_Condensed } from 'next/font/google';
 import './globals.css';
 import QueryProvider from '@/lib/QueryProvider';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer';
+import Header from '@/components/Layout/Header';
+import Footer from '@/components/Layout/Footer';
 import Background from '@/components/Background/Background';
 
 const robotoCondensed = Roboto_Condensed({

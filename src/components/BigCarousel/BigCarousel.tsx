@@ -1,20 +1,16 @@
-import { MovieWithRgb } from '@/lib/tmdb';
+'use client';
+
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './BigCarousel.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { Movie } from 'tmdb-ts';
 
-function BigCarousel({ movies }: { movies: MovieWithRgb[] }) {
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    const handleImageLoaded = () => {
-        setIsLoaded(true);
-    };
-
+function BigCarousel({ movies }: { movies: Movie[] }) {
     return (
         <Carousel
+            ssr
             additionalTransfrom={0}
             autoPlaySpeed={8000}
             autoPlay
@@ -52,26 +48,21 @@ function BigCarousel({ movies }: { movies: MovieWithRgb[] }) {
                         quality={100}
                         priority
                         className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
-                        onLoad={handleImageLoaded}
                     />
 
-                    {isLoaded && (
-                        <div
-                            className="absolute inset-0"
-                            style={{
-                                backgroundImage: `linear-gradient(to bottom, transparent 300px, rgba(0,0,0,0.75) 100%)`,
-                            }}
-                        >
-                            <div className="absolute bottom-0 left-0 px-12 py-16">
-                                <h2 className="mb-2 text-2xl font-bold">
-                                    {movie.title}
-                                </h2>
-                                <p className="text-sm w-2xl">
-                                    {movie.overview}
-                                </p>
-                            </div>
+                    <div
+                        className="absolute inset-0"
+                        style={{
+                            backgroundImage: `linear-gradient(to bottom, transparent 300px, rgba(0,0,0,0.75) 100%)`,
+                        }}
+                    >
+                        <div className="absolute bottom-0 left-0 px-12 py-16">
+                            <h2 className="mb-2 text-2xl font-bold">
+                                {movie.title}
+                            </h2>
+                            <p className="text-sm w-2xl">{movie.overview}</p>
                         </div>
-                    )}
+                    </div>
                 </Link>
             ))}
         </Carousel>

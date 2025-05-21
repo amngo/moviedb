@@ -1,5 +1,4 @@
 import { Movie, TMDB } from 'tmdb-ts';
-import { getAverageImageColor } from './utils';
 
 export const tmdb = new TMDB(
     'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYmU3NWIxNmVhNzhjZGY4ZWI5ZDU5NDM0YTJlMzYyNiIsIm5iZiI6MTU3OTc3MjMxNy4wMiwic3ViIjoiNWUyOTY5OWQxNjg1ZGEwMDEzZTJlNzJlIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.WXJTUbxCSx3NZuOuxVkoYx-laF1LkKwYqeiIErqVX2U',
@@ -7,46 +6,19 @@ export const tmdb = new TMDB(
 
 export type MovieWithRgb = Movie & { rgb: string };
 
-export async function getNowPlayingMovies(): Promise<MovieWithRgb[]> {
+export async function getNowPlayingMovies() {
     const response = await tmdb.movies.nowPlaying();
-
-    // Get rgb values for each movie
-    const promises = response.results.map(async (movie) => {
-        const rgb = await getAverageImageColor(
-            `https://image.tmdb.org/t/p/original${movie.poster_path}`,
-        );
-        (movie as MovieWithRgb).rgb = rgb;
-    });
-    await Promise.all(promises);
-    return response.results as MovieWithRgb[];
+    return response.results;
 }
 
 export async function getUpcomingMovies() {
     const response = await tmdb.movies.upcoming();
-
-    // Get rgb values for each movie
-    const promises = response.results.map(async (movie) => {
-        const rgb = await getAverageImageColor(
-            `https://image.tmdb.org/t/p/original${movie.poster_path}`,
-        );
-        (movie as MovieWithRgb).rgb = rgb;
-    });
-    await Promise.all(promises);
-    return response.results as MovieWithRgb[];
+    return response.results;
 }
 
 export async function getPopularMovies() {
     const response = await tmdb.movies.popular();
-
-    // Get rgb values for each movie
-    const promises = response.results.map(async (movie) => {
-        const rgb = await getAverageImageColor(
-            `https://image.tmdb.org/t/p/original${movie.poster_path}`,
-        );
-        (movie as MovieWithRgb).rgb = rgb;
-    });
-    await Promise.all(promises);
-    return response.results as MovieWithRgb[];
+    return response.results;
 }
 
 export async function getCertification(movieId: number) {

@@ -28,7 +28,10 @@ function Pagination({
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(event.target.value);
-        setPage(value);
+
+        if (!isNaN(value)) {
+            setPage(value);
+        }
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -45,7 +48,7 @@ function Pagination({
         } else if (page > totalPages) {
             setPage(totalPages);
             router.push(
-                `${path}?page=${totalPages}${query ? `&${query}` : ''}`,
+                `${path}?page=${totalPages}${query ? `&${query}` : ''}`
             );
         } else {
             router.push(`${path}?page=${page}${query ? `&${query}` : ''}`);

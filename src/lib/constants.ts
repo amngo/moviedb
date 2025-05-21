@@ -114,3 +114,13 @@ export const GENRE_POSTERS = [
         poster: 'https://image.tmdb.org/t/p/original/zksO4lVnRKRoaSYzh2EDn2Z3Pel.jpg',
     },
 ];
+
+export const MOTION_CONTAINER = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.07 } },
+};
+
+export const MOTION_ITEM = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.75 } },
+};

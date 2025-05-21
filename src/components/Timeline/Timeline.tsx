@@ -28,19 +28,16 @@ function Timeline({ credits }: TimelineProps) {
         }
     };
 
-    const yearCounts = sortedCredits.reduce(
-        (acc, credit) => {
-            const year = credit.release_date
-                ? new Date(credit.release_date).getFullYear().toString()
-                : 'TBA';
-            if (!acc[year]) {
-                acc[year] = 0;
-            }
-            acc[year]++;
-            return acc;
-        },
-        {} as { [key: string]: number },
-    );
+    const yearCounts = sortedCredits.reduce((acc, credit) => {
+        const year = credit.release_date
+            ? new Date(credit.release_date).getFullYear().toString()
+            : 'TBA';
+        if (!acc[year]) {
+            acc[year] = 0;
+        }
+        acc[year]++;
+        return acc;
+    }, {} as { [key: string]: number });
 
     const uniqueYears = Object.keys(yearCounts).sort((a, b) => {
         if (a === 'TBA' || b === 'TBA') return 1;
@@ -52,7 +49,7 @@ function Timeline({ credits }: TimelineProps) {
 
     const handleScroll = () => {
         if (timelineRef.current) {
-            console.log(window.scrollY, timelineRef.current.offsetTop);
+            // console.log(window.scrollY, timelineRef.current.offsetTop);
             setShowBackToTop(window.scrollY > timelineRef.current.offsetTop);
         }
     };
@@ -99,7 +96,7 @@ function Timeline({ credits }: TimelineProps) {
                     const previousYear =
                         index > 0 && sortedCredits[index - 1].release_date
                             ? new Date(
-                                  sortedCredits[index - 1].release_date,
+                                  sortedCredits[index - 1].release_date
                               ).getFullYear()
                             : 'TBA';
 

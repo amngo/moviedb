@@ -1,31 +1,21 @@
 'use client';
 import GenrePoster from '@/app/genre/_components/GenrePoster';
-import { GENRE_POSTERS } from '@/lib/constants';
+import { GENRE_POSTERS, MOTION_CONTAINER, MOTION_ITEM } from '@/lib/constants';
 import { motion } from 'motion/react';
-
-const container = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.07 } },
-};
-
-const item = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { duration: 0.75 } },
-};
 
 export default function Genre() {
     return (
         <div className="w-full grid gap-12 min-h-screen pt-12">
             <section className="grid">
                 <motion.ul
-                    variants={container}
+                    variants={MOTION_CONTAINER}
                     initial="hidden"
                     animate="show"
                     className="flex gap-2 flex-wrap"
                 >
                     {GENRE_POSTERS.map((genre) => (
                         <motion.li
-                            variants={item}
+                            variants={MOTION_ITEM}
                             key={genre.id}
                             className="w-[250px] h-[375px] relative"
                         >

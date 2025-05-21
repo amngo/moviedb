@@ -1,92 +1,36 @@
-'use client';
-import BigMoviePoster from '@/components/BigMoviePoster';
-import Loader from '@/components/Loader/Loader';
-import Pagination from '@/components/Pagination/Pagination';
-import { GENRE_POSTERS } from '@/lib/constants';
+import GenreScreen from '@/components/screens/GenreScreen';
 import { getMoviesFromGenre } from '@/lib/tmdb';
-import { useQuery } from '@tanstack/react-query';
-import { motion } from 'motion/react';
-import { useParams, useSearchParams } from 'next/navigation';
+import {
+    dehydrate,
+    HydrationBoundary,
+    QueryClient,
+} from '@tanstack/react-query';
 
-const container = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.07 } },
-};
+export default async function Page({
+    params,
+    searchParams,
+}: {
+    params: Promise<{ id: string }>;
+    searchParams: Promise<{ page: string }>;
+}) {
+    const { id } = await params;
+    const { page } = await searchParams;
+    const queryClient = new QueryClient();
 
-const item = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { duration: 0.75 } },
-};
-
-export default function Page() {
-    const pathname = window.location.pathname;
-    const params = useParams();
-    const searchParams = useSearchParams();
-
-    const { id } = params;
-    const page = searchParams.get('page');
-
-    const { data } = useQuery({
+    await queryClient.prefetchQuery({
         queryKey: ['movies', id, page],
         queryFn: async () => {
-            if (typeof id !== 'string') {
-                throw new Error('Invalid genre ID');
-            }
-
             const result = await getMoviesFromGenre(
                 id,
                 page ? Number(page) : 1
             );
             return result;
         },
-        enabled: typeof id === 'string',
     });
 
-    if (!data) {
-        return (
-            <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-full">
-                <p className="text-3xl">Fetching movies...</p>
-                <Loader />
-            </div>
-        );
-    }
-
-    if (!id) {
-        return (
-            <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-fulll">
-                <p className="text-3xl">Invalid genre ID</p>
-                <Loader />
-            </div>
-        );
-    }
-
     return (
-        <section className="flex flex-col w-full min-h-screen pt-12 items-start">
-            <Pagination
-                title={
-                    GENRE_POSTERS.find((genre) => genre.id === id)?.name ?? ''
-                }
-                path={pathname}
-                totalResults={data.total_results}
-                totalPages={data.total_pages}
-                currentPage={page ? Number(page) : 1}
-            />
-            <motion.ul
-                variants={container}
-                initial="hidden"
-                animate="show"
-                className="mt-4 grid grid-cols-4 col-span-2 justify-items-center gap-y-4 w-full"
-            >
-                {data.results.map((movie) => (
-                    <motion.li
-                        variants={item}
-                        key={movie.id}
-                        className="min-w-[250px] min-h-[375px] relative"
-                    >
-                        <BigMoviePoster movie={movie} />
-                    </motion.li>
-                ))}
-            </motion.ul>
-        </section>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <GenreScreen id={id} page={page} />
+        </HydrationBoundary>
     );
 }

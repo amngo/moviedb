@@ -6,6 +6,26 @@ import {
     QueryClient,
 } from '@tanstack/react-query';
 
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ id: string }>;
+}) {
+    const { id } = await params;
+
+    if (isNaN(Number(id))) {
+        throw new Error('Invalid person ID');
+    }
+
+    const result = await tmdb.people.details(Number(id));
+    const title = `${result.name} | MovieDB`;
+
+    return {
+        title,
+        description: result.biography,
+    };
+}
+
 export default async function Page({
     params,
 }: {

@@ -15,6 +15,27 @@ import {
 import { getAverageImageColor } from '@/lib/utils';
 import MovieScreen from '@/components/screens/MovieScreen';
 
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ id: string }>;
+}) {
+    const { id } = await params;
+    const movieId = Number(id);
+    if (isNaN(movieId)) {
+        throw new Error('Invalid movie ID');
+    }
+
+    const result = await tmdb.movies.details(movieId);
+    const year = new Date(result.release_date).getFullYear();
+    const title = `${result.title} (${year}) | MovieDB`;
+
+    return {
+        title,
+        description: result.overview,
+    };
+}
+
 export default async function Page({
     params,
 }: {

@@ -5,6 +5,11 @@ import {
     HydrationBoundary,
     QueryClient,
 } from '@tanstack/react-query';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'My History | MovieDB',
+};
 
 export default async function Page() {
     const queryClient = new QueryClient();

@@ -20,7 +20,8 @@ const audiowide = Audiowide({
 
 export const metadata: Metadata = {
     title: 'MovieDB',
-    description: 'A Movie Database',
+    description:
+        'MovieDB is a web application that provides information about movies and people in the entertainment industry.',
 };
 
 export default function RootLayout({

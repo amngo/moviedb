@@ -11,12 +11,10 @@ body {
 }
 
 body {
+    position: relative;
     color: var(--foreground);
     background: var(--background);
-    font-family:
-        Roboto Condensed,
-        Arial,
-        Helvetica,
-        sans-serif;
-    display: grid;
+    font-family: Roboto Condensed, Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
 }

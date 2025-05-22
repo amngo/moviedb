@@ -29,7 +29,7 @@ function GenreScreen({ id, page }: { id: string; page: string }) {
 
     if (!id) {
         return (
-            <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-fulll">
+            <div className="flex flex-col gap-2 justify-center items-center w-fulll">
                 <p className="text-3xl">Invalid genre ID</p>
                 <Loader />
             </div>
@@ -37,16 +37,11 @@ function GenreScreen({ id, page }: { id: string; page: string }) {
     }
 
     if (!data) {
-        return (
-            <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-full">
-                <p className="text-3xl">Fetching movies...</p>
-                <Loader />
-            </div>
-        );
+        return null;
     }
 
     return (
-        <section className="flex flex-col w-full min-h-screen pt-12 items-start">
+        <section className="flex flex-col w-full pt-12 items-start">
             <Pagination
                 title={
                     GENRE_POSTERS.find((genre) => genre.id === id)?.name ?? ''

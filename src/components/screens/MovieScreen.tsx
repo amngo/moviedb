@@ -19,7 +19,6 @@ import {
 } from '@/lib/tmdb';
 import Heading from '@/components/ui/Heading';
 import { getAverageImageColor } from '@/lib/utils';
-import Loader from '@/components/Loader/Loader';
 import Image from 'next/image';
 import { useEffect } from 'react';
 
@@ -89,18 +88,9 @@ function MovieScreen() {
         }
     }, [id]);
 
-    if (!movie) {
-        return (
-            <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-full">
-                <p className="text-3xl">Fetching movie information</p>
-                <Loader />
-            </div>
-        );
-    }
-
     if (isError) {
         return (
-            <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-full">
+            <div className="flex flex-col gap-2 justify-center items-center w-full">
                 <p className="text-3xl">
                     Error when fetching movie information. Please try again or
                     another movie.
@@ -108,6 +98,8 @@ function MovieScreen() {
             </div>
         );
     }
+
+    if (!movie) return <div className="h-screen w-full"></div>;
 
     const {
         title,

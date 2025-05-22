@@ -25,7 +25,7 @@ function PersonScreen({ id }: { id: string }) {
     });
 
     if (!person || !credits) {
-        return <div>Loading...</div>;
+        return null;
     }
 
     // Sort credits.cast by popularity without mutating the original array
@@ -34,7 +34,7 @@ function PersonScreen({ id }: { id: string }) {
     );
 
     return (
-        <div className="grid grid-cols-[300px_1fr] gap-12 p-6 pb-24 bg-black/50 backdrop-blur-md min-h-screen h-full">
+        <div className="grid grid-cols-[300px_1fr] gap-12 p-6 pb-24 bg-black/50 backdrop-blur-md h-full">
             <Image
                 src={
                     person.profile_path

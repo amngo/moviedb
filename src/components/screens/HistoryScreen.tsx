@@ -1,15 +1,13 @@
 'use client';
-
 import { getMutipleMovies } from '@/lib/tmdb';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import BigMoviePoster from '../BigMoviePoster';
-import Loader from '../Loader/Loader';
 import Heading from '../ui/Heading';
 import { MOTION_CONTAINER, MOTION_ITEM } from '@/lib/constants';
 
 function HistoryScreen() {
-    const { data, isLoading } = useQuery({
+    const { data } = useQuery({
         queryKey: ['history'],
         queryFn: async () => {
             const history = localStorage.getItem('history');
@@ -28,17 +26,10 @@ function HistoryScreen() {
         },
     });
 
-    if (isLoading || !data) {
-        return (
-            <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-full">
-                <p className="text-3xl">Fetching your history...</p>
-                <Loader />
-            </div>
-        );
-    }
+    if (!data) return null;
 
     return (
-        <section className="flex flex-col w-full min-h-screen pt-12 items-start">
+        <section className="flex flex-col w-full pt-12 items-start">
             {data.length === 0 ? (
                 <Heading>No history found. Start looking up movies!</Heading>
             ) : (

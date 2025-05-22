@@ -30,9 +30,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${robotoCondensed} ${audiowide} antialiased`}>
+            <body
+                className={`${robotoCondensed} ${audiowide} antialiased min-h-screen`}
+            >
                 <Header />
-                <main className="mx-auto w-full my-16 max-w-[1080px] relative">
+                <main className="mx-auto w-full my-16 max-w-[1080px] relative flex-1">
                     <QueryProvider>
                         <Suspense>{children}</Suspense>
                     </QueryProvider>

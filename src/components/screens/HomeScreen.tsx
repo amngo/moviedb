@@ -9,7 +9,6 @@ import {
     getPopularMovies,
     getUpcomingMovies,
 } from '@/lib/tmdb';
-import Loader from '../Loader/Loader';
 import { MOTION_CONTAINER, MOTION_ITEM } from '@/lib/constants';
 
 function HomeScreen() {
@@ -29,16 +28,11 @@ function HomeScreen() {
     });
 
     if (!nowPlayingMovies || !upcomingMovies || !popularMovies) {
-        return (
-            <div className="flex flex-col gap-2 justify-center items-center min-h-screen w-full">
-                <p className="text-3xl">Fetching the latest movies</p>
-                <Loader />
-            </div>
-        );
+        return null;
     }
 
     return (
-        <div className="w-full grid gap-12 min-h-screen pt-12">
+        <div className="w-full grid gap-12 pt-12">
             <section className="grid gap-2">
                 <Heading>Now Playing</Heading>
                 <motion.div

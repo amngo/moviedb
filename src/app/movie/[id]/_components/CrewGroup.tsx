@@ -9,7 +9,7 @@ function CrewGroup({
     crew: { id: number; name: string; job: string; profile_path: string }[];
     loading: boolean;
 }) {
-    if (crew.length === 0) {
+    if (crew.length === 0 && !loading) {
         return (
             <div className="flex flex-col items-start justify-start w-full gap-4">
                 <Heading>Cast</Heading>

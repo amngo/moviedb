@@ -30,7 +30,7 @@ function CastGroup({
         }
     }, [showAll, cast]);
 
-    if (cast.length === 0) {
+    if (cast.length === 0 && !loading) {
         return (
             <div className="flex flex-col items-start justify-start w-full gap-4">
                 <Heading>Cast</Heading>

@@ -5,13 +5,7 @@ import {
     HydrationBoundary,
     QueryClient,
 } from '@tanstack/react-query';
-import {
-    getCastImages,
-    getCertification,
-    getDirectors,
-    getRecommendations,
-    getTrailer,
-} from '@/lib/tmdb';
+import { getCertification, getTrailer } from '@/lib/tmdb';
 import { getAverageImageColor } from '@/lib/utils';
 import MovieScreen from '@/components/screens/MovieScreen';
 
@@ -67,18 +61,6 @@ export default async function Page({
         queryClient.prefetchQuery({
             queryKey: ['certification', id],
             queryFn: () => getCertification(Number(id)),
-        }),
-        queryClient.prefetchQuery({
-            queryKey: ['cast', id],
-            queryFn: () => getCastImages(Number(id)),
-        }),
-        queryClient.prefetchQuery({
-            queryKey: ['crew', id],
-            queryFn: () => getDirectors(Number(id)),
-        }),
-        queryClient.prefetchQuery({
-            queryKey: ['recommendations', id],
-            queryFn: () => getRecommendations(Number(id)),
         }),
         queryClient.prefetchQuery({
             queryKey: ['trailer', id],

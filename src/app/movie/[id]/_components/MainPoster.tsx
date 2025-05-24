@@ -38,7 +38,7 @@ function MainPoster({
                 objectFit="contain"
                 className="min-w-[200px] min-h-[300px]"
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center transition-opacity duration-300 bg-black/75 opacity-0 group-hover:opacity-100">
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center opacity-0 gap-2 transition-opacity duration-300 bg-black/75 group-hover:opacity-100">
                 <FaRegPlayCircle className="text-4xl" />
                 <span className="text-lg font-bold">Play Trailer</span>
             </div>

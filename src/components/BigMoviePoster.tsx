@@ -32,14 +32,14 @@ function BigMoviePoster({
                         priority
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                     />
-                    <div className="hidden transition-opacity duration-500 ease-out opacity-0 lg:block group-hover:opacity-100">
+                    <div className="hidden opacity-0 transition-opacity duration-500 ease-out lg:block group-hover:opacity-100">
                         <div
                             className="absolute top-0 left-0 w-full h-full"
                             style={{
                                 backgroundImage: `linear-gradient(to bottom, transparent 0, rgba(0,0,0,0.3) 200px, rgba(0,0,0,0.75) 300px)`,
                             }}
                         />
-                        <div className="absolute bottom-0 left-0 grid w-full">
+                        <div className="absolute bottom-0 left-0 w-full grid">
                             <div className="h-[50px] flex justify-between items-center px-4">
                                 <h2 className="font-bold truncate w-[200px]">
                                     {movie.title}

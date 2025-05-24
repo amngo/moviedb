@@ -56,7 +56,7 @@ function Pagination({
     };
 
     return (
-        <div className="flex items-center justify-between w-full gap-4 px-4 py-3 rounded-md bg-black/50 backdrop-blur-md justify-self-end">
+        <div className="flex items-center justify-between w-full px-4 py-3 gap-4 rounded-md bg-black/50 backdrop-blur-md justify-self-end">
             <h2 className="hidden max-w-md font-bold tracking-wider text-white uppercase truncate text lg:block">
                 {title}
             </h2>

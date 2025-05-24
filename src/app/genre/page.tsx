@@ -6,14 +6,14 @@ import { motion } from 'motion/react';
 
 export default function Page() {
     return (
-        <div className="grid w-full min-h-screen gap-12 pt-4">
+        <div className="w-full min-h-screen pt-4 grid gap-12">
             <section>
                 <Heading>Movies by Genres</Heading>
                 <motion.ul
                     variants={MOTION_CONTAINER}
                     initial="hidden"
                     animate="show"
-                    className="grid grid-cols-2 gap-4 mt-4 sm:grid-cols-3 justify-items-center2"
+                    className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 justify-items-center2"
                 >
                     {GENRE_POSTERS.map((genre) => (
                         <motion.li

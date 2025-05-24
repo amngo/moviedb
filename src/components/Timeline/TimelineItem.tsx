@@ -35,7 +35,7 @@ function TimelineItem({
     return (
         <>
             {showYearSeparator && (
-                <div className="w-full text-center my-4">
+                <div className="w-full my-4 text-center">
                     <h2 className="text-2xl font-bold">{year || 'TBA'}</h2>
                 </div>
             )}

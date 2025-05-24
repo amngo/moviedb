@@ -25,7 +25,7 @@ function PopularRoles({ movies }: PopularRolesProps) {
                 variants={container}
                 initial="hidden"
                 animate="show"
-                className="flex gap-2 overflow-x-scroll w-full py-4"
+                className="flex w-full py-4 overflow-x-scroll gap-2"
             >
                 {movies.slice(0, 8).map((movie) => (
                     <motion.li

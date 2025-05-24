@@ -152,7 +152,7 @@ function MovieScreen() {
                         />
                     </div>
 
-                    <div className="flex flex-col gap-12 mt-8 lg:mt-0">
+                    <div className="flex flex-col mt-8 gap-12 lg:mt-0">
                         <div className="flex flex-col items-center gap-4 lg:items-start">
                             <h1 className="text-3xl font-bold lg:text-5xl">
                                 {title}
@@ -174,7 +174,7 @@ function MovieScreen() {
                         <CrewGroup loading={crewLoading} crew={crew ?? []} />
                         <CastGroup loading={castLoading} cast={cast ?? []} />
                         {recommendations && recommendations.length > 0 && (
-                            <div className="flex flex-col items-start justify-start gap-4 overflow-hidden">
+                            <div className="flex flex-col items-start justify-start overflow-hidden gap-4">
                                 <Heading>Recommendations</Heading>
                                 <MovieList movies={recommendations ?? []} />
                             </div>

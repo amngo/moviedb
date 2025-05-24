@@ -24,7 +24,7 @@ function CrewGroup({
             {loading && (
                 <div
                     role="status"
-                    className="grid w-full grid-cols-3 animate-pulse gap-y-2"
+                    className="w-full grid grid-cols-3 animate-pulse gap-y-2"
                 >
                     <PersonSkeleton />
                     <PersonSkeleton />
@@ -34,7 +34,7 @@ function CrewGroup({
             )}
 
             {crew.length > 0 && (
-                <ul className="grid w-full grid-cols-2 sm:grid-cols-3 gap-y-2">
+                <ul className="w-full grid grid-cols-2 sm:grid-cols-3 gap-y-2">
                     {crew.map((person) => (
                         <Person
                             key={person.id}

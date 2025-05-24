@@ -73,7 +73,7 @@ function Timeline({ credits }: TimelineProps) {
     return (
         <div ref={yearSelectorRef} className="flex flex-col w-full gap-4">
             <Heading>Filmography ({credits.length})</Heading>
-            <div className="grid grid-cols-12 gap-4 mb-4">
+            <div className="mb-4 grid grid-cols-12 gap-4">
                 {uniqueYears.map((year) => (
                     <button
                         key={year}
@@ -141,7 +141,7 @@ function Timeline({ credits }: TimelineProps) {
                             exit={{ opacity: 0, scale: 0.9 }}
                             transition={{ duration: 0.2 }}
                             onClick={handleBackToTopClick}
-                            className="fixed bottom-4 right-4 px-4 py-2 z-50 text-white font-bold bg-blue-600 rounded-full"
+                            className="fixed z-50 px-4 py-2 font-bold text-white bg-blue-600 rounded-full bottom-4 right-4"
                         >
                             Back to Top
                         </motion.button>

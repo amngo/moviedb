@@ -13,9 +13,9 @@ function GenrePoster({
     color: string;
 }) {
     return (
-        <Link href={`/genre/${id}`} className="h-full w-full group">
-            <div className="h-full w-full overflow-hidden rounded-md relative">
-                <span className="absolute h-full w-full z-10 flex justify-center items-center font-bold text-2xl">
+        <Link href={`/genre/${id}`} className="w-full h-full group">
+            <div className="relative w-full h-full overflow-hidden rounded-md">
+                <span className="absolute z-10 flex items-center justify-center w-full h-full text-2xl font-bold">
                     {name}
                 </span>
                 <Image

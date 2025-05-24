@@ -41,7 +41,7 @@ function GenreScreen({ id, page }: { id: string; page: string }) {
     }
 
     return (
-        <section className="flex flex-col items-start w-full gap-4 pt-4">
+        <section className="flex flex-col items-start w-full pt-4 gap-4">
             <Pagination
                 title={
                     GENRE_POSTERS.find((genre) => genre.id === id)?.name ?? ''
@@ -55,7 +55,7 @@ function GenreScreen({ id, page }: { id: string; page: string }) {
                 variants={MOTION_CONTAINER}
                 initial="hidden"
                 animate="show"
-                className="grid items-center w-full grid-cols-2 col-span-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 justify-items-center"
+                className="items-center w-full grid grid-cols-2 col-span-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 justify-items-center"
             >
                 {data.results.map((movie) => (
                     <BigMoviePoster key={movie.id} movie={movie} />

@@ -88,7 +88,7 @@ function SearchBar() {
                                 </button>
                                 <button
                                     onClick={() => setOverlay(false)}
-                                    className="flex items-center justify-center h-10 gap-2 px-4 py-2 text-red-500 border border-red-500 rounded-md"
+                                    className="flex items-center justify-center h-10 px-4 py-2 text-red-500 border border-red-500 gap-2 rounded-md"
                                 >
                                     Close
                                 </button>

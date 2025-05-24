@@ -15,7 +15,7 @@ function MovieInfo({
     revenue?: number;
 }) {
     return (
-        <div className="flex gap-2">
+        <div className="flex flex-wrap justify-center gap-4 lg:gap-2 lg:justify-start">
             <Box title="Rating" text={certification ? certification : 'N/A'} />
             <Box
                 title="Release Date"

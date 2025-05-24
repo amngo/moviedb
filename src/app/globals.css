@@ -18,3 +18,9 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+@media (width < 64rem /* 1024px */) {
+    .movie-bg {
+        background-image: none !important;
+    }
+}

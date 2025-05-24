@@ -1,6 +1,6 @@
 'use client';
 
-import { GENRE_POSTERS, MOTION_CONTAINER, MOTION_ITEM } from '@/lib/constants';
+import { GENRE_POSTERS, MOTION_CONTAINER } from '@/lib/constants';
 import { motion } from 'motion/react';
 import BigMoviePoster from '../BigMoviePoster';
 import Pagination from '../Pagination/Pagination';
@@ -29,7 +29,7 @@ function GenreScreen({ id, page }: { id: string; page: string }) {
 
     if (!id) {
         return (
-            <div className="flex flex-col gap-2 justify-center items-center w-fulll">
+            <div className="flex flex-col items-center justify-center gap-2 w-fulll">
                 <p className="text-3xl">Invalid genre ID</p>
                 <Loader />
             </div>
@@ -41,7 +41,7 @@ function GenreScreen({ id, page }: { id: string; page: string }) {
     }
 
     return (
-        <section className="flex flex-col w-full pt-12 items-start">
+        <section className="flex flex-col items-start w-full gap-4 pt-4">
             <Pagination
                 title={
                     GENRE_POSTERS.find((genre) => genre.id === id)?.name ?? ''
@@ -55,18 +55,21 @@ function GenreScreen({ id, page }: { id: string; page: string }) {
                 variants={MOTION_CONTAINER}
                 initial="hidden"
                 animate="show"
-                className="mt-4 grid grid-cols-4 col-span-2 justify-items-center gap-y-4 w-full"
+                className="grid items-center w-full grid-cols-2 col-span-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 justify-items-center"
             >
                 {data.results.map((movie) => (
-                    <motion.li
-                        variants={MOTION_ITEM}
-                        key={movie.id}
-                        className="min-w-[250px] min-h-[375px] relative"
-                    >
-                        <BigMoviePoster movie={movie} />
-                    </motion.li>
+                    <BigMoviePoster key={movie.id} movie={movie} />
                 ))}
             </motion.ul>
+            <Pagination
+                title={
+                    GENRE_POSTERS.find((genre) => genre.id === id)?.name ?? ''
+                }
+                path={pathname}
+                totalResults={data.total_results}
+                totalPages={data.total_pages}
+                currentPage={page ? Number(page) : 1}
+            />
         </section>
     );
 }

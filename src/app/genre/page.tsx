@@ -1,23 +1,25 @@
 'use client';
 import GenrePoster from '@/app/genre/_components/GenrePoster';
+import Heading from '@/components/ui/Heading';
 import { GENRE_POSTERS, MOTION_CONTAINER, MOTION_ITEM } from '@/lib/constants';
 import { motion } from 'motion/react';
 
 export default function Page() {
     return (
-        <div className="w-full grid gap-12 min-h-screen pt-12">
-            <section className="grid">
+        <div className="grid w-full min-h-screen gap-12 pt-4">
+            <section>
+                <Heading>Movies by Genres</Heading>
                 <motion.ul
                     variants={MOTION_CONTAINER}
                     initial="hidden"
                     animate="show"
-                    className="flex gap-2 flex-wrap"
+                    className="grid grid-cols-2 gap-4 mt-4 sm:grid-cols-3 justify-items-center2"
                 >
                     {GENRE_POSTERS.map((genre) => (
                         <motion.li
                             variants={MOTION_ITEM}
                             key={genre.id}
-                            className="w-[250px] h-[375px] relative"
+                            className="relative w-full h-full"
                         >
                             <GenrePoster
                                 id={genre.id}

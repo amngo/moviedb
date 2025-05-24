@@ -56,12 +56,12 @@ function Pagination({
     };
 
     return (
-        <div className="flex items-center justify-between gap-4 bg-black/50 backdrop-blur-md px-4 py-3 rounded-md w-full justify-self-end">
-            <h2 className="text font-bold tracking-wider text-white uppercase max-w-md truncate">
+        <div className="flex items-center justify-between w-full gap-4 px-4 py-3 rounded-md bg-black/50 backdrop-blur-md justify-self-end">
+            <h2 className="hidden max-w-md font-bold tracking-wider text-white uppercase truncate text lg:block">
                 {title}
             </h2>
             {totalResults > 20 && (
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center justify-between w-full gap-4">
                     <div>
                         <p className="text-sm">
                             Showing{' '}
@@ -82,7 +82,7 @@ function Pagination({
                     <div>
                         <nav
                             aria-label="Pagination"
-                            className="isolate inline-flex -space-x-px rounded-md shadow-xs gap-2"
+                            className="inline-flex gap-2 -space-x-px rounded-md shadow-xs isolate"
                         >
                             <Link
                                 aria-disabled={currentPage === 0}
@@ -93,7 +93,11 @@ function Pagination({
                                           }`
                                         : '#'
                                 }
-                                className="relative inline-flex items-center justify-center rounded-l-md ring-1 ring-gray-300 ring-inset hover:bg-white hover:text-black focus:z-20 focus:outline-offset-0 h-8 w-8"
+                                className={`relative items-center justify-center w-8 h-8 rounded-l-md ring-1 ring-gray-300 ring-inset hover:bg-white hover:text-black focus:z-20 focus:outline-offset-0${
+                                    currentPage === 1
+                                        ? ' hidden'
+                                        : ' inline-flex'
+                                }`}
                             >
                                 <span className="sr-only">Previous</span>
                                 <BiChevronLeft
@@ -108,7 +112,7 @@ function Pagination({
                                 onChange={handleChange}
                                 onKeyDown={handleKeyDown}
                                 onBlur={handleBlur}
-                                className="w-16 h-8 text-center font-bold text-sm bg-black/0 border-white border-[1px] placeholder:text-white"
+                                className="w-12 h-8 text-center font-bold text-sm bg-black/0 border-white border-[1px] placeholder:text-white"
                             />
 
                             <Link
@@ -119,7 +123,11 @@ function Pagination({
                                           }`
                                         : '#'
                                 }
-                                className="relative inline-flex items-center rounded-r-md h-8 w-8 justify-center ring-1 ring-gray-300 ring-inset hover:bg-white hover:text-black focus:z-20 focus:outline-offset-0"
+                                className={`relative items-center justify-center w-8 h-8 rounded-r-md ring-1 ring-gray-300 ring-inset hover:bg-white hover:text-black focus:z-20 focus:outline-offset-0 ${
+                                    currentPage === totalPages
+                                        ? ' hidden'
+                                        : ' inline-flex'
+                                }`}
                             >
                                 <span className="sr-only">Next</span>
                                 <BiChevronRight

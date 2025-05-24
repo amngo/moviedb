@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import BigMoviePoster from '../BigMoviePoster';
 import Pagination from '../Pagination/Pagination';
-import { MOTION_CONTAINER, MOTION_ITEM } from '@/lib/constants';
+import { MOTION_CONTAINER } from '@/lib/constants';
 
 function SearchScreen({ q, page }: { q: string; page: string }) {
     const pathname = '/search';
@@ -25,7 +25,7 @@ function SearchScreen({ q, page }: { q: string; page: string }) {
     }
 
     return (
-        <section className="flex flex-col w-full pt-12 items-start">
+        <section className="flex flex-col items-start w-full gap-4 pt-4">
             <Pagination
                 path={pathname}
                 query={`q=${q}`}
@@ -38,18 +38,20 @@ function SearchScreen({ q, page }: { q: string; page: string }) {
                 variants={MOTION_CONTAINER}
                 initial="hidden"
                 animate="show"
-                className="mt-4 grid grid-cols-4 col-span-2 justify-items-center gap-y-4 w-full"
+                className="grid items-center w-full grid-cols-2 col-span-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 justify-items-center"
             >
                 {data.results.map((movie) => (
-                    <motion.li
-                        variants={MOTION_ITEM}
-                        key={movie.id}
-                        className="min-w-[250px] min-h-[375px] relative"
-                    >
-                        <BigMoviePoster movie={movie} />
-                    </motion.li>
+                    <BigMoviePoster key={movie.id} movie={movie} />
                 ))}
             </motion.ul>
+            <Pagination
+                path={pathname}
+                query={`q=${q}`}
+                title={`Search results for "${q}"`}
+                totalResults={data.total_results}
+                totalPages={data.total_pages}
+                currentPage={page ? Number(page) : 1}
+            />
         </section>
     );
 }

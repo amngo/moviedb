@@ -7,11 +7,6 @@ const container = {
     show: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
-const item = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { duration: 0.75 } },
-};
-
 function MovieList({ movies }: { movies: Movie[] | Recommendation[] }) {
     return (
         <motion.ul
@@ -19,16 +14,10 @@ function MovieList({ movies }: { movies: Movie[] | Recommendation[] }) {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.05 }}
-            className="grid grid-cols-3 gap-2 w-full items-center justify-items-center"
+            className="grid items-center w-full grid-cols-2 gap-4 justify-items-center sm:grid-cols-3"
         >
             {movies.map((movie) => (
-                <motion.li
-                    variants={item}
-                    key={movie.id}
-                    className="min-w-[250px] min-h-[375px] relative"
-                >
-                    <BigMoviePoster movie={movie} />
-                </motion.li>
+                <BigMoviePoster key={movie.id} movie={movie} />
             ))}
         </motion.ul>
     );

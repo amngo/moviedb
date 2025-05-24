@@ -34,11 +34,11 @@ function CrewGroup({
             )}
 
             {crew.length > 0 && (
-                <ul className="grid w-full grid-cols-3 gap-y-2">
+                <ul className="grid w-full grid-cols-2 sm:grid-cols-3 gap-y-2">
                     {crew.map((person) => (
                         <Person
                             key={person.id}
-                            id={person.id}
+                            // id={person.id}
                             name={person.name}
                             character={person.job}
                             profile_path={person.profile_path}

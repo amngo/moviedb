@@ -46,7 +46,7 @@ function CastGroup({
             {loading && (
                 <div
                     role="status"
-                    className="grid w-full grid-cols-3 animate-pulse gap-y-2"
+                    className="grid w-full grid-cols-2 sm:grid-cols-3 animate-pulse gap-y-2"
                 >
                     <PersonSkeleton />
                     <PersonSkeleton />
@@ -65,11 +65,11 @@ function CastGroup({
             )}
 
             {cast.length > 0 && (
-                <ul className="grid w-full grid-cols-3 gap-y-2">
+                <ul className="grid w-full grid-cols-2 sm:grid-cols-3 gap-y-2">
                     {currentCast.map((person) => (
                         <Person
                             key={person.id}
-                            id={person.id}
+                            // id={person.id}
                             name={person.name}
                             character={person.character}
                             profile_path={person.profile_path}
@@ -80,7 +80,7 @@ function CastGroup({
 
             {currentCast.length > 12 && (
                 <button
-                    className="flex items-center self-center gap-2 px-4 py-2 transition-all duration-500 ease-out bg-black/15 rounded-lg hover:bg-black/30"
+                    className="flex items-center self-center gap-2 px-4 py-2 transition-all duration-500 ease-out rounded-lg bg-black/15 hover:bg-black/30"
                     onClick={handleClick}
                 >
                     {showAll ? <span>See Less</span> : <span>See All</span>}

@@ -9,7 +9,7 @@ import {
     getPopularMovies,
     getUpcomingMovies,
 } from '@/lib/tmdb';
-import { MOTION_CONTAINER, MOTION_ITEM } from '@/lib/constants';
+import { MOTION_CONTAINER } from '@/lib/constants';
 
 function HomeScreen() {
     const { data: nowPlayingMovies } = useQuery({
@@ -32,55 +32,49 @@ function HomeScreen() {
     }
 
     return (
-        <div className="w-full grid gap-12 pt-12">
-            <section className="grid gap-2">
+        <div className="grid w-full gap-12 pt-4">
+            <section className="grid gap-4">
                 <Heading>Now Playing</Heading>
-                <motion.div
+                <div className="hidden max-w-[1080px] rounded-md overflow-hidden sm:block">
+                    <BigCarousel movies={nowPlayingMovies.slice(0, 12)} />
+                </div>
+
+                <motion.ul
                     variants={MOTION_CONTAINER}
                     initial="hidden"
                     animate="show"
-                    className="w-[1080px] max-h-[600px] min-h-[600px] rounded-md overflow-hidden"
+                    className="grid items-center w-full grid-cols-2 gap-4 justify-items-center sm:grid-cols-3 lg:overflow-x-scroll sm:hidden"
                 >
-                    <BigCarousel movies={nowPlayingMovies.slice(0, 8)} />
-                </motion.div>
+                    {upcomingMovies.slice(0, 12).map((movie) => (
+                        <BigMoviePoster key={movie.id} movie={movie} />
+                    ))}
+                </motion.ul>
             </section>
 
-            <section className="grid">
+            <section className="grid gap-4">
                 <Heading>Upcoming</Heading>
                 <motion.ul
                     variants={MOTION_CONTAINER}
                     initial="hidden"
                     animate="show"
-                    className="flex gap-2 overflow-x-scroll w-full py-4"
+                    className="grid items-center w-full grid-cols-2 gap-4 justify-items-center sm:grid-cols-3 lg:overflow-x-scroll lg:flex"
                 >
-                    {upcomingMovies.slice(0, 8).map((movie) => (
-                        <motion.li
-                            variants={MOTION_ITEM}
-                            key={movie.id}
-                            className="min-w-[250px] min-h-[375px] relative"
-                        >
-                            <BigMoviePoster movie={movie} />
-                        </motion.li>
+                    {upcomingMovies.slice(0, 12).map((movie) => (
+                        <BigMoviePoster key={movie.id} movie={movie} />
                     ))}
                 </motion.ul>
             </section>
 
-            <section className="grid">
+            <section className="grid gap-4">
                 <Heading>Popular</Heading>
                 <motion.ul
                     variants={MOTION_CONTAINER}
                     initial="hidden"
                     animate="show"
-                    className="flex gap-2 overflow-x-scroll w-full py-4"
+                    className="grid items-center w-full grid-cols-2 gap-4 justify-items-center sm:grid-cols-3 lg:overflow-x-scroll lg:flex"
                 >
-                    {popularMovies.slice(0, 8).map((movie) => (
-                        <motion.li
-                            variants={MOTION_ITEM}
-                            key={movie.id}
-                            className="min-w-[250px] min-h-[375px] relative"
-                        >
-                            <BigMoviePoster movie={movie} />
-                        </motion.li>
+                    {popularMovies.slice(0, 12).map((movie) => (
+                        <BigMoviePoster key={movie.id} movie={movie} />
                     ))}
                 </motion.ul>
             </section>

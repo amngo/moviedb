@@ -90,7 +90,7 @@ function MovieScreen() {
 
     if (isError) {
         return (
-            <div className="flex flex-col gap-2 justify-center items-center w-full">
+            <div className="flex flex-col items-center justify-center w-full gap-2">
                 <p className="text-3xl">
                     Error when fetching movie information. Please try again or
                     another movie.
@@ -99,7 +99,7 @@ function MovieScreen() {
         );
     }
 
-    if (!movie) return <div className="h-screen w-full"></div>;
+    if (!movie) return <div className="w-full h-screen"></div>;
 
     const {
         title,
@@ -115,9 +115,9 @@ function MovieScreen() {
 
     return (
         <>
-            <div className="w-full h-full fixed top-0 left-0">
+            <div className="fixed top-0 left-0 w-full h-screen">
                 <div
-                    className="absolute inset-0 backdrop-blur-md z-10"
+                    className="absolute inset-0 z-10 backdrop-blur-sm"
                     style={{
                         backgroundColor: `rgba(${movie.rgb}, 0.60)`,
                     }}
@@ -131,7 +131,7 @@ function MovieScreen() {
             </div>
 
             <div
-                className="w-full h-full max-w-[1080px] min-h-screen z-10 relative"
+                className="movie-bg w-full h-full max-w-[1080px] min-h-screen z-10 relative rounded-md overflow-hidden"
                 style={{
                     backgroundImage: `url(https://image.tmdb.org/t/p/original${backdrop_path})`,
                     backgroundSize: 'contain',
@@ -140,50 +140,46 @@ function MovieScreen() {
                 }}
             >
                 <div
-                    className="pt-[350px] p-6 pb-24 grid grid-cols-[min-content_1fr_1fr] grid-rows-[min-content_min-content_min-content_min-content_min-content] gap-x-8 gap-y-12"
+                    className="lg:pt-[350px] p-4 lg:p-6 pb-24 grid justify-center lg:grid-cols-[min-content_1fr] gap-x-8"
                     style={{
                         backgroundImage: `linear-gradient(to bottom, transparent 0, rgb(${movie.rgb}) 550px, rgb(${movie.rgb}) 100%)`,
                     }}
                 >
-                    <div className="flex flex-col items-center col-span-1 row-span-5 gap-4">
+                    <div className="flex flex-col items-center col-start-1">
                         <MainPoster
                             posterPath={poster_path ?? ''}
                             trailer={trailer ?? undefined}
                         />
                     </div>
 
-                    <div className="flex flex-col col-span-2 row-span-1 gap-4">
-                        <h1 className="text-5xl font-bold">{title}</h1>
-                        <GenreTags genres={genres} />
-                        <MovieInfo
-                            certification={certification ?? undefined}
-                            release_date={release_date}
-                            runtime={runtime}
-                            budget={budget}
-                            revenue={revenue}
-                        />
-                    </div>
-
-                    {overview && (
-                        <div className="col-span-2">
-                            <Overview overview={overview} />
+                    <div className="flex flex-col gap-12 mt-8 lg:mt-0">
+                        <div className="flex flex-col items-center gap-4 lg:items-start">
+                            <h1 className="text-3xl font-bold lg:text-5xl">
+                                {title}
+                            </h1>
+                            <GenreTags genres={genres} />
+                            <MovieInfo
+                                certification={certification ?? undefined}
+                                release_date={release_date}
+                                runtime={runtime}
+                                budget={budget}
+                                revenue={revenue}
+                            />
                         </div>
-                    )}
-
-                    <div className="col-span-2">
+                        {overview && (
+                            <div className="col-start-2">
+                                <Overview overview={overview} />
+                            </div>
+                        )}
                         <CrewGroup loading={crewLoading} crew={crew ?? []} />
-                    </div>
-
-                    <div className="col-span-2">
                         <CastGroup loading={castLoading} cast={cast ?? []} />
+                        {recommendations && recommendations.length > 0 && (
+                            <div className="flex flex-col items-start justify-start gap-4 overflow-hidden">
+                                <Heading>Recommendations</Heading>
+                                <MovieList movies={recommendations ?? []} />
+                            </div>
+                        )}
                     </div>
-
-                    {recommendations && recommendations.length > 0 && (
-                        <div className="flex flex-col items-start justify-start col-span-2 row-span-4 gap-4 overflow-hidden">
-                            <Heading>Recommendations</Heading>
-                            <MovieList movies={recommendations ?? []} />
-                        </div>
-                    )}
                 </div>
             </div>
         </>

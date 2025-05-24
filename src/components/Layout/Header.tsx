@@ -1,21 +1,21 @@
 'use client';
-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import SearchBar from './SearchBar';
+import MobileNav from './MobileNav';
 
 function Header() {
     const pathname = usePathname();
     return (
         <header className="fixed top-0 left-0 w-full z-[2000] flex justify-center h-16 px-4 bg-black/75 backdrop-blur-lg">
-            <div className="grid grid-cols-3 items-center w-full max-w-[1080px]">
+            <div className="grid grid-cols-2 lg:grid-cols-3 items-center w-full max-w-[1080px]">
                 <Link href="/">
                     <h1 className="text-xl uppercase font-[audiowide] font-bold bg-gradient-to-r from-blue-400 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
                         Movie•DB
                     </h1>
                 </Link>
 
-                <nav>
+                <nav className="hidden lg:block">
                     <ul className="flex justify-center space-x-4">
                         <li>
                             <Link
@@ -58,8 +58,9 @@ function Header() {
                     </ul>
                 </nav>
 
-                <div className="justify-self-end">
+                <div className="flex items-center gap-2 justify-self-end">
                     <SearchBar />
+                    <MobileNav />
                 </div>
             </div>
         </header>

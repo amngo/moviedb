@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'motion/react';
 import BigMoviePoster from '../BigMoviePoster';
 import Heading from '../ui/Heading';
-import { MOTION_CONTAINER, MOTION_ITEM } from '@/lib/constants';
+import { MOTION_CONTAINER } from '@/lib/constants';
 
 function HistoryScreen() {
     const { data } = useQuery({
@@ -29,7 +29,7 @@ function HistoryScreen() {
     if (!data) return null;
 
     return (
-        <section className="flex flex-col w-full pt-12 items-start">
+        <section className="flex flex-col items-start w-full pt-4">
             {data.length === 0 ? (
                 <Heading>No history found. Start looking up movies!</Heading>
             ) : (
@@ -39,16 +39,10 @@ function HistoryScreen() {
                 variants={MOTION_CONTAINER}
                 initial="hidden"
                 animate="show"
-                className="mt-4 grid grid-cols-4 col-span-2 justify-items-center gap-y-4 w-full"
+                className="grid items-center w-full grid-cols-2 gap-4 mt-4 sm:grid-cols-3 lg:grid-cols-4 justify-items-center"
             >
                 {data.map((movie) => (
-                    <motion.li
-                        variants={MOTION_ITEM}
-                        key={movie.id}
-                        className="min-w-[250px] min-h-[375px] relative"
-                    >
-                        <BigMoviePoster movie={movie} />
-                    </motion.li>
+                    <BigMoviePoster key={movie.id} movie={movie} />
                 ))}
             </motion.ul>
         </section>

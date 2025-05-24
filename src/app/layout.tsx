@@ -35,7 +35,7 @@ export default function RootLayout({
                 className={`${robotoCondensed} ${audiowide} antialiased min-h-screen`}
             >
                 <Header />
-                <main className="mx-auto w-full my-16 max-w-[1080px] relative flex-1 p-2">
+                <main className="mx-auto w-full my-16 max-w-[1080px] relative flex-1 p-4">
                     <QueryProvider>
                         <Suspense>{children}</Suspense>
                     </QueryProvider>

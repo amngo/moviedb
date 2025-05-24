@@ -29,6 +29,7 @@ function SearchBar() {
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter' && query) {
             setQuery('');
+            setOverlay(false);
             router.push(`/search?q=${query}`);
         }
     };
@@ -49,7 +50,7 @@ function SearchBar() {
 
             <button
                 onClick={handleClick}
-                className="flex items-center justify-center w-10 h-10 lg:hidden"
+                className="flex items-center justify-center w-12 h-12 lg:hidden"
             >
                 <FaSearch className="text-xl" />
             </button>
@@ -88,7 +89,7 @@ function SearchBar() {
                                 </button>
                                 <button
                                     onClick={() => setOverlay(false)}
-                                    className="flex items-center justify-center h-10 px-4 py-2 text-red-500 border border-red-500 gap-2 rounded-md"
+                                    className="flex items-center justify-center h-10 gap-2 px-4 py-2 text-red-500 border border-red-500 rounded-md"
                                 >
                                     Close
                                 </button>

@@ -6,6 +6,7 @@ import Header from '@/components/Layout/Header';
 import Footer from '@/components/Layout/Footer';
 import Background from '@/components/Background/Background';
 import { Suspense } from 'react';
+import { Analytics } from '@vercel/analytics/next';
 
 const robotoCondensed = Roboto_Condensed({
     variable: '--font-roboto-condensed',
@@ -42,6 +43,7 @@ export default function RootLayout({
                 </main>
                 <Footer />
                 <Background />
+                <Analytics />
             </body>
         </html>
     );

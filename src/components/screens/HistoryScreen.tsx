@@ -39,7 +39,7 @@ function HistoryScreen() {
                 variants={MOTION_CONTAINER}
                 initial="hidden"
                 animate="show"
-                className="items-center w-full mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 justify-items-center"
+                className="items-center w-full mt-4 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 lg:grid-cols-5 justify-items-center"
             >
                 {data.map((movie) => (
                     <BigMoviePoster key={movie.id} movie={movie} />

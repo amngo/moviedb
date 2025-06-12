@@ -4,7 +4,6 @@ import './globals.css';
 import QueryProvider from '@/lib/QueryProvider';
 import Header from '@/components/Layout/Header';
 import Footer from '@/components/Layout/Footer';
-import Background from '@/components/Background/Background';
 import { Suspense } from 'react';
 import { Analytics } from '@vercel/analytics/next';
 
@@ -42,7 +41,7 @@ export default function RootLayout({
                     </QueryProvider>
                 </main>
                 <Footer />
-                <Background />
+
                 <Analytics />
             </body>
         </html>

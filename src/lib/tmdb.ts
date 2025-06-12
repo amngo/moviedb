@@ -1,7 +1,7 @@
 import { Movie, TMDB } from 'tmdb-ts';
 
 export const tmdb = new TMDB(
-    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYmU3NWIxNmVhNzhjZGY4ZWI5ZDU5NDM0YTJlMzYyNiIsIm5iZiI6MTU3OTc3MjMxNy4wMiwic3ViIjoiNWUyOTY5OWQxNjg1ZGEwMDEzZTJlNzJlIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.WXJTUbxCSx3NZuOuxVkoYx-laF1LkKwYqeiIErqVX2U',
+    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYmU3NWIxNmVhNzhjZGY4ZWI5ZDU5NDM0YTJlMzYyNiIsIm5iZiI6MTU3OTc3MjMxNy4wMiwic3ViIjoiNWUyOTY5OWQxNjg1ZGEwMDEzZTJlNzJlIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.WXJTUbxCSx3NZuOuxVkoYx-laF1LkKwYqeiIErqVX2U'
 );
 
 export type MovieWithRgb = Movie & { rgb: string };
@@ -12,7 +12,9 @@ export async function getNowPlayingMovies() {
 }
 
 export async function getUpcomingMovies() {
-    const response = await tmdb.movies.upcoming();
+    const response = await tmdb.discover.movie({
+        'primary_release_date.gte': new Date().toISOString().split('T')[0],
+    });
     return response.results;
 }
 
@@ -27,7 +29,7 @@ export async function getCertification(movieId: number) {
         (certification: {
             iso_3166_1: string;
             release_dates: { certification: string }[];
-        }) => certification.iso_3166_1 === 'US',
+        }) => certification.iso_3166_1 === 'US'
     );
     return usCertification?.release_dates[0].certification ?? null;
 }
@@ -52,7 +54,7 @@ export async function getDirectors(movieId: number) {
             member.job === 'Writer' ||
             member.job === 'Screenplay' ||
             member.job === 'Story' ||
-            member.job === 'Characters',
+            member.job === 'Characters'
     );
 
     // Concatenate job titles for duplicate crew members
@@ -77,7 +79,7 @@ export async function getTrailer(movieId: number) {
     const response = await tmdb.movies.videos(movieId);
     return (
         response.results.find(
-            (video: { type: string }) => video.type === 'Trailer',
+            (video: { type: string }) => video.type === 'Trailer'
         ) ?? null
     );
 }

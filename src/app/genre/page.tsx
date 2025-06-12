@@ -13,7 +13,7 @@ export default function Page() {
                     variants={MOTION_CONTAINER}
                     initial="hidden"
                     animate="show"
-                    className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 justify-items-center2"
+                    className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 justify-items-center"
                 >
                     {GENRE_POSTERS.map((genre) => (
                         <motion.li

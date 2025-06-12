@@ -14,7 +14,7 @@ function MovieList({ movies }: { movies: Movie[] | Recommendation[] }) {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.05 }}
-            className="items-center w-full grid grid-cols-2 gap-4 justify-items-center sm:grid-cols-3"
+            className="items-center w-full grid grid-cols-2 gap-x-4 gap-y-8 justify-items-center sm:grid-cols-4"
         >
             {movies.map((movie) => (
                 <BigMoviePoster key={movie.id} movie={movie} />

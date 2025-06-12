@@ -3,7 +3,6 @@ import { formatDate } from '@/lib/utils';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IoInformationCircle } from 'react-icons/io5';
 import { Movie, MovieDetails, Recommendation } from 'tmdb-ts';
 
 function BigMoviePoster({
@@ -15,9 +14,12 @@ function BigMoviePoster({
         <motion.li
             variants={MOTION_ITEM}
             key={movie.id}
-            className="relative lg:min-w-[250px] lg:min-h-[375px]"
+            className="relative w-auto h-auto"
         >
-            <Link href={`/movie/${movie.id}`} className="group">
+            <Link
+                href={`/movie/${movie.id}`}
+                className="group flex flex-col gap-2"
+            >
                 <div className="w-full h-full overflow-hidden rounded-md">
                     <Image
                         src={
@@ -32,27 +34,14 @@ function BigMoviePoster({
                         priority
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                     />
-                    <div className="hidden opacity-0 transition-opacity duration-500 ease-out lg:block group-hover:opacity-100">
-                        <div
-                            className="absolute top-0 left-0 w-full h-full"
-                            style={{
-                                backgroundImage: `linear-gradient(to bottom, transparent 0, rgba(0,0,0,0.3) 200px, rgba(0,0,0,0.75) 300px)`,
-                            }}
-                        />
-                        <div className="absolute bottom-0 left-0 w-full grid">
-                            <div className="h-[50px] flex justify-between items-center px-4">
-                                <h2 className="font-bold truncate w-[200px]">
-                                    {movie.title}
-                                </h2>
-                            </div>
-                            <div className="h-[50px] flex justify-between items-center px-4 bg-black/25">
-                                <p className="text-sm">
-                                    {formatDate(movie.release_date)}
-                                </p>
-                                <IoInformationCircle className="text-2xl" />
-                            </div>
-                        </div>
+                </div>
+                <div className="w-full grid gap-1">
+                    <div className="flex justify-between items-center overflow-hidden">
+                        <h2 className="font-bold truncate text-sm">
+                            {movie.title}
+                        </h2>
                     </div>
+                    <p className="text-xs">{formatDate(movie.release_date)}</p>
                 </div>
             </Link>
         </motion.li>

@@ -1,7 +1,6 @@
 import { MOTION_ITEM } from '@/lib/constants';
 import { formatDate } from '@/lib/utils';
 import { motion } from 'motion/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Movie, MovieDetails, Recommendation } from 'tmdb-ts';
 
@@ -21,7 +20,7 @@ function BigMoviePoster({
                 className="group flex flex-col gap-2"
             >
                 <div className="w-full h-full overflow-hidden rounded-md">
-                    <Image
+                    <img
                         src={
                             movie.poster_path
                                 ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
@@ -30,8 +29,6 @@ function BigMoviePoster({
                         alt={movie.title}
                         width={500}
                         height={750}
-                        quality={100}
-                        priority
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                     />
                 </div>

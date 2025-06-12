@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 function GenrePoster({
@@ -18,13 +17,11 @@ function GenrePoster({
                 <span className="absolute z-10 flex items-center justify-center w-full h-full text-2xl font-bold">
                     {name}
                 </span>
-                <Image
+                <img
                     src={image}
                     alt={name}
                     width={250}
                     height={375}
-                    quality={100}
-                    priority
                     className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700 ease-out grayscale"
                 />
 

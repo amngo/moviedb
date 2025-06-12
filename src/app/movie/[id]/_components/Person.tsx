@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 function Person({
     // id,
     name,
@@ -18,7 +16,7 @@ function Person({
                 className="grid grid-cols-[48px_1fr] items-center gap-2 sm:gap-4 p-2 transition-all duration-500 ease-out rounded-lg group bg-black/0 hover:bg-black/15"
             > */}
             <div className="w-12 h-16 overflow-hidden rounded-xl">
-                <Image
+                <img
                     src={
                         profile_path
                             ? `https://image.tmdb.org/t/p/w500${profile_path}`
@@ -28,7 +26,6 @@ function Person({
                     width={100}
                     height={200}
                     className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-110"
-                    priority
                 />
             </div>
 

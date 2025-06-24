@@ -1,6 +1,6 @@
 import { Movie, TMDB } from 'tmdb-ts';
 
-const API_KEY = process.env.TMDB_API_KEY!;
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY!;
 
 export const tmdb = new TMDB(API_KEY);
 

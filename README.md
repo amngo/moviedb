@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Movie DB
 
-## Getting Started
+Movie DB is a web application built with Next.js that allows users to browse and search for movies using data from [The Movie Database (TMDB) API](https://www.themoviedb.org/). Users can view trending films, search by title, and explore detailed information about each movie.
 
-First, run the development server:
+## 📸 Screenshots
+
+![Movie DB Screenshot](./public/screenshots/moviedb-1.png)
+![Movie DB Screenshot](./public/screenshots/moviedb-3.png)
+
+## 🚀 Features
+
+- 🔍 Search movies by title
+- 📈 Browse trending and popular movies
+- 📄 View detailed movie info including poster, overview, release date, and rating
+- 🎨 Responsive and modern UI
+- ⚡ Fast load times with server-side rendering (Next.js)
+
+## 🛠 Tech Stack
+
+**Frontend:**
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Motion](https://motion.dev/)
+
+**APIs:**
+- [TMDB API](https://developer.themoviedb.org/docs)
+
+## 🧑‍💻 Getting Started
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/amngo/moviedb.git
+cd moviedb
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Create `.env.local`
+
+Create a `.env.local` file in the root and add your TMDB API key:
+
+```env
+TMDB_API_KEY=your_tmdb_api_key
+```
+
+### 4. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📦 Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This app is ready to deploy on platforms like **Vercel**, **Netlify**, or **Render**.
 
-## Learn More
+```bash
+npm run build
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+Or one-click deploy to Vercel:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=your-vercel-template)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧪 Tests
 
-## Deploy on Vercel
+This project currently doesn't include automated tests, but you can add:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Jest or React Testing Library for unit tests
+- Playwright or Cypress for E2E
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🤝 Contributing
+
+Pull requests are welcome! If you have suggestions for improvements or new features, open an issue or submit a PR.
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## 🙌 Acknowledgements
+
+- [TMDB API](https://developer.themoviedb.org/)
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [tmdb-ts](https://www.npmjs.com/package/tmdb-ts)

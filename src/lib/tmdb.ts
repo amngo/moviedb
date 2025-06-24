@@ -1,8 +1,8 @@
 import { Movie, TMDB } from 'tmdb-ts';
 
-export const tmdb = new TMDB(
-    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYmU3NWIxNmVhNzhjZGY4ZWI5ZDU5NDM0YTJlMzYyNiIsIm5iZiI6MTU3OTc3MjMxNy4wMiwic3ViIjoiNWUyOTY5OWQxNjg1ZGEwMDEzZTJlNzJlIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.WXJTUbxCSx3NZuOuxVkoYx-laF1LkKwYqeiIErqVX2U'
-);
+const API_KEY = process.env.TMDB_API_KEY!;
+
+export const tmdb = new TMDB(API_KEY);
 
 export type MovieWithRgb = Movie & { rgb: string };
 

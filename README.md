@@ -2,11 +2,6 @@
 
 Movie DB is a web application built with Next.js that allows users to browse and search for movies using data from [The Movie Database (TMDB) API](https://www.themoviedb.org/). Users can view trending films, search by title, and explore detailed information about each movie.
 
-## 📸 Screenshots
-
-![Movie DB Screenshot](./public/screenshots/moviedb-1.png)
-![Movie DB Screenshot](./public/screenshots/moviedb-3.png)
-
 ## 🚀 Features
 
 - 🔍 Search movies by title

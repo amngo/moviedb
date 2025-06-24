@@ -41,7 +41,7 @@ npm install
 Create a `.env.local` file in the root and add your TMDB API key:
 
 ```env
-TMDB_API_KEY=your_tmdb_api_key
+NEXT_PUBLIC_TMDB_API_KEY=your_tmdb_api_key
 ```
 
 ### 4. Run the development server
